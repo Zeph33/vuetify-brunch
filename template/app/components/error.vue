@@ -2,7 +2,7 @@
     div.error
         h1 Page not found
         p It would appear that
-          em {{ path }}
+          em \{{ path }}
           | could not be found.
 </template>
 

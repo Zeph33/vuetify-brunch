@@ -32,7 +32,7 @@
           v-list-tile-title Switch drawer (click me)
     v-footer(dark :fixed="fixed" app)
       v-spacer
-      div &copy; {{ new Date().getFullYear() }}
+      div &copy; \{{ new Date().getFullYear() }}
 </template>
 
 <script>
