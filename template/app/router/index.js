@@ -31,9 +31,7 @@ Vue.use(Router)
 
 export default routes
 export function createRouter () {
-  const router = new Router({
-    base: __dirname,
-    mode: 'history',
+  return new Router({
     mode: 'history',
     saveScrollPosition: true,
     routes
