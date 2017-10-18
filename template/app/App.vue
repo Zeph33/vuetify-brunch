@@ -4,7 +4,7 @@
       v-list
         v-list-tile(v-for="(item, i) in items" :key="i" router :to="item.to")
           v-list-tile-action
-            v-icon {{ item.icon }}
+            v-icon \{{ item.icon }}
           v-list-tile-content
             v-list-tile-title(v-text="item.title")
     v-toolbar(color="primary" dark clipped-left fixed app)
