@@ -1,16 +1,22 @@
 <template lang="pug">
+  //- base app
   v-app(light)
-    v-navigation-drawer(dark persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" app)
+    //- message warning and alert
+    #alertemsg
+      v-alert(color="error" v-model="msg.error.show" dismissible) {{ msg.error.msg }}
+      v-alert(color="warning" v-model="msg.warning.show" dismissible) {{ msg.warning.msg }}
+      v-alert(color="info" v-model="msg.info.show" dismissible) {{ msg.info.msg }}
+    v-navigation-drawer(ref="vnav" dark stateless fixed :mini-variant="mini" :clipped="clipped" v-model="drawer" app)
       v-list
         v-list-tile(v-for="(item, i) in items" :key="i" router :to="item.to")
           v-list-tile-action
-            v-icon \{{ item.icon }}
+            v-icon {{ item.icon }}
           v-list-tile-content
             v-list-tile-title(v-text="item.title")
     v-toolbar(color="primary" dark clipped-left fixed app)
       v-toolbar-side-icon(@click="drawer = !drawer")
-      v-btn(icon @click.native.stop="miniVariant = !miniVariant")
-        v-icon(v-html="miniVariant ? 'chevron_right' : 'chevron_left'")
+      v-btn(icon @click.native.stop="toggleMini()")
+        v-icon(v-html="mini ? 'chevron_right' : 'chevron_left'")
       v-btn(icon @click.native.stop="clipped = !clipped")
         v-icon web
       v-btn(icon @click.native.stop="fixed = !fixed")
@@ -19,12 +25,11 @@
       v-spacer
       v-btn(icon @click.native.stop="rightDrawer = !rightDrawer")
         v-icon menu
-    main
-      v-content
-        v-container(fluid)
-          v-slide-y-transition(mode="out-in")
-            router-view
-    v-navigation-drawer(temporary :right="right" v-model="rightDrawer" app)
+    v-content
+      v-container(fluid)
+        v-slide-y-transition(mode="out-in")
+          router-view
+    v-navigation-drawer(fixed touchless temporary :right="right" v-model="rightDrawer" app)
       v-list
         v-list-tile(@click.native="right = !right")
           v-list-tile-action
@@ -32,34 +37,71 @@
           v-list-tile-title Switch drawer (click me)
     v-footer(dark :fixed="fixed" app)
       v-spacer
-      div &copy; \{{ new Date().getFullYear() }}
+      v-btn.no-text-transform(flat color="primary" href="https://github.com/Zeph33" target="_blank") &copy; {{ new Date().getFullYear() }} by Zeph
 </template>
 
 <script>
   export default {
     data () {
       return {
-        title: 'Brunch + Vuetify.js',
         clipped: true,
         drawer: true,
         fixed: true,
-        miniVariant: false,
+        error: false,
+        msg: {
+          info: { show:false, msg: '', timeout: null },
+          warning: { show:false, msg: '', timeout: null },
+          error: { show:false, msg: '', timeout: null }
+        },
+        items: [
+          { title: 'Vue', to: '/vue', icon: 'insert_drive_file' },
+          { title: 'Vuetify', to: '/vuetify', icon: 'insert_photo' },
+          { title: 'Brunch', to: '/brunch', icon: 'insert_invitation'},
+          { title: 'Settings', to: '/settings', icon: 'settings'}
+        ],
         right: true,
         rightDrawer: false,
-        items: [
-          { title: 'Profil', to: '/', icon: 'dashboard' },
-          { title: 'Inspire', to: '/inspire', icon: 'line_style' },
-          { title: 'Store', to: '/store', icon: 'local_grocery_store' },
-          { title: 'Send', to: '/send', icon: 'send' },
-          { title: 'Save', to: '/save', icon: 'save' },
-          { title: 'Public', to: '/public', icon: 'public' },
-          { title: 'Return', to: '/return', icon: 'assignment_returned' },
-          { title: 'RSS', to: '/rss', icon: 'rss_feed' }
-        ]
+      }
+    },
+    created: function() {
+      window.app = this
+    },
+    methods: {
+      toggleMini() {
+        this.setMini(!this.mini)
+        this.$nextTick(this.$refs.vnav.updateApplication)
+      },
+      showerror(msg) { this.showmsg(msg, 'error')},
+      showwarning(msg) { this.showmsg(msg, 'warning')},
+      showmsg(msg, type='info') {
+        const m = this.clearmsg(type)
+        m.msg = msg
+        m.show = true
+        m.timeout = setTimeout(() => { m.show = false }, 4000)
+      },
+      clearmsg(type='info') {
+        const m = this.msg[type] || this.msg.info
+        m.timeout && clearTimeout(m.timeout)
+        m.msg = ''
+        m.show = false
+        return m
       }
     }
   }
 </script>
 
 <style lang="stylus">
+  .no-text-transform
+    text-transform: none
+  #alertemsg
+    position fixed
+    bottom 10px
+    z-index 15
+    width 100%
+    display flex
+    flex-direction column
+    .alert
+      text-align center
+      width 100%
+      max-width 400px
 </style>

@@ -1,16 +1,12 @@
-//import Vue from 'vue' 
-import Vuex from 'vuex' // Comment import for not have vue.js in vendor.js
+import Vuex from 'vuex'
+import {state as settings, mixins as settingsMix} from './settings'
+// import Vue from 'vue'
 
-Vue.use(Vuex)
+window && window.Vue && window.Vue.use(Vuex)
 
-export function createStore () {
-  return new Vuex.Store({
-    state: {},
-
-    actions: {},
-
-    mutations: {},
-
-    getters: {}
-  })
-}
+export const mixins = [settingsMix]
+export const store = new Vuex.Store({
+  modules: {
+     settings
+  }
+})

@@ -62,12 +62,12 @@
     "stylus-brunch": "^2.10.0",
     "stylus-loader": "^3.0.1",
     "uglify-js-brunch": "^2.10.0",
-    "vue": "^2.5.2",
+    "vue": "^2.5.8",
     "vue-brunch": "^2.0.0",
     "vue-loader": "^13.3.0",
     "vue-router": "^3.0.1",
-    "vue-template-compiler": "^2.5.2",
-    "vuetify": "^0.16.7",
+    "vue-template-compiler": "^2.5.8",
+    "vuetify": "^0.17.2",
     "vuex": "^3.0.0",
     "vuex-router-sync": "^5.0.0"
 

@@ -1,19 +1,11 @@
 const prod = process.env.NODE_ENV ? process.env.NODE_ENV=='production' : false
 const minJsCss = prod ? '.min' : ''
 const vuetifySrc = prod ? 'js' : 'dist'
+let arCopyCSS = ['node_modules/vuetify/dist/vuetify'+minJsCss+'.css']
+let arCopyJS = ['node_modules/vuetify/dist/vuetify'+minJsCss+'.js', 'node_modules/vue/dist/vue.runtime'+minJsCss+'.js']
+if(!prod) arCopyJS.push('node_modules/vuetify/dist/vuetify.js.map')
 
 module.exports = {
-  conventions: {
-    ignored: ['vuetify','vue'] // Files that are not in `app` dir.
-  },
-  npm: {
-    enabled: true,
-    globals : {
-      // Vuetify :'vuetify',
-      // vuetify :'vuetify',
-      // Vue :'vue'
-    }
-  },
   files: {
     javascripts: {
       joinTo: {
@@ -29,6 +21,9 @@ module.exports = {
     templates: {
       joinTo: 'app.js'
     }
+  },
+  server: {
+    path: 'server.js'
   },
   plugins: {
     stylus: {
@@ -50,8 +45,8 @@ module.exports = {
       out: 'public/css/components.css'
     },
     copyfilemon:{
-      'css':['node_modules/vuetify/dist/vuetify'+minJsCss+'.css'],
-      'js':['node_modules/vuetify/dist/vuetify'+minJsCss+'.js', 'node_modules/vue/dist/vue.runtime'+minJsCss+'.js'],
+      'css': arCopyCSS,
+      'js': arCopyJS
     },
     uglify: {
       mangle: true,
