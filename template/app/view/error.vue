@@ -1,7 +1,7 @@
 <template lang="pug">
     v-alert#error(color="error" icon="warning" value="true")
         h3 Page not found
-        blockquote It would appear that #[br] #[code {{ path }}] #[br]could not be found
+        blockquote It would appear that #[br] #[code \{{ path }}] #[br]could not be found
 </template>
 
 <script>

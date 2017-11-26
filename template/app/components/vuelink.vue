@@ -3,7 +3,7 @@
     v-flex(xs12 sm6 offset-sm3)
       v-card
         v-toolbar(color="indigo" dark)
-          v-toolbar-title {{ title }}
+          v-toolbar-title \{{ title }}
         v-list
           v-list-tile(v-for="item in items" :href="item.href" target="_blank") {{ item.title }}
     slot

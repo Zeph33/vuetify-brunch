@@ -3,14 +3,14 @@
   v-app(light)
     //- message warning and alert
     #alertemsg
-      v-alert.black--text(color="error" v-model="msg.error.show" dismissible) {{ msg.error.msg }}
-      v-alert.black--text(color="warning" v-model="msg.warning.show" dismissible) {{ msg.warning.msg }}
-      v-alert(color="info" v-model="msg.info.show" dismissible) {{ msg.info.msg }}
+      v-alert.black--text(color="error" v-model="msg.error.show" dismissible) \{{ msg.error.msg }}
+      v-alert.black--text(color="warning" v-model="msg.warning.show" dismissible) \{{ msg.warning.msg }}
+      v-alert(color="info" v-model="msg.info.show" dismissible) \{{ msg.info.msg }}
     v-navigation-drawer(ref="vnav" dark stateless fixed :mini-variant="miniNav" :clipped="clipped" v-model="drawer" app)
       v-list
         v-list-tile(v-for="(item, i) in items" :key="i" router :to="item.to")
           v-list-tile-action
-            v-icon {{ item.icon }}
+            v-icon \{{ item.icon }}
           v-list-tile-content
             v-list-tile-title(v-text="item.title")
     v-toolbar(color="primary" dark clipped-left fixed app)
@@ -39,7 +39,7 @@
           v-list-tile-title Switch drawer (click me)
     v-footer(dark :fixed="fixed" app)
       v-spacer
-      v-btn.no-text-transform(flat color="primary" href="https://github.com/Zeph33" target="_blank") &copy; {{ new Date().getFullYear() }} by Zeph
+      v-btn.no-text-transform(flat color="primary" href="https://github.com/Zeph33" target="_blank") &copy; \{{ new Date().getFullYear() }} by Zeph
 </template>
 
 <script>

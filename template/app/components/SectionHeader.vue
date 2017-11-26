@@ -1,5 +1,5 @@
 <template lang="pug">
-  h5(class="section-header" :style="styles") {{ text }}
+  h5(class="section-header" :style="styles") \{{ text }}
     slot
 </template>
 

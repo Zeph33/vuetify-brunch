@@ -1,6 +1,6 @@
 <template lang="pug">
   div.welcome
-    SectionHeader {{ msg }}
+    SectionHeader \{{ msg }}
     p(align="center")
       img(width="200" src="./img/logo_vue.svg")
       img(width="200" src="./img/logo_brunch.png")
