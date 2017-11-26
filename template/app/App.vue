@@ -3,10 +3,10 @@
   v-app(light)
     //- message warning and alert
     #alertemsg
-      v-alert(color="error" v-model="msg.error.show" dismissible) {{ msg.error.msg }}
-      v-alert(color="warning" v-model="msg.warning.show" dismissible) {{ msg.warning.msg }}
+      v-alert.black--text(color="error" v-model="msg.error.show" dismissible) {{ msg.error.msg }}
+      v-alert.black--text(color="warning" v-model="msg.warning.show" dismissible) {{ msg.warning.msg }}
       v-alert(color="info" v-model="msg.info.show" dismissible) {{ msg.info.msg }}
-    v-navigation-drawer(ref="vnav" dark stateless fixed :mini-variant="mini" :clipped="clipped" v-model="drawer" app)
+    v-navigation-drawer(ref="vnav" dark stateless fixed :mini-variant="miniNav" :clipped="clipped" v-model="drawer" app)
       v-list
         v-list-tile(v-for="(item, i) in items" :key="i" router :to="item.to")
           v-list-tile-action
@@ -16,12 +16,14 @@
     v-toolbar(color="primary" dark clipped-left fixed app)
       v-toolbar-side-icon(@click="drawer = !drawer")
       v-btn(icon @click.native.stop="toggleMini()")
-        v-icon(v-html="mini ? 'chevron_right' : 'chevron_left'")
+        v-icon(v-html="miniNav ? 'chevron_right' : 'chevron_left'")
       v-btn(icon @click.native.stop="clipped = !clipped")
         v-icon web
       v-btn(icon @click.native.stop="fixed = !fixed")
         v-icon remove
-      v-toolbar-title(v-text="title")
+      v-toolbar-items.hidden-sm-and-down
+        v-btn.no-text-transform(flat color="primary" :to="{path: '/'}")
+          v-toolbar-title.white--text(v-text="titleApp")
       v-spacer
       v-btn(icon @click.native.stop="rightDrawer = !rightDrawer")
         v-icon menu
@@ -47,17 +49,17 @@
         clipped: true,
         drawer: true,
         fixed: true,
-        error: false,
         msg: {
           info: { show:false, msg: '', timeout: null },
           warning: { show:false, msg: '', timeout: null },
           error: { show:false, msg: '', timeout: null }
         },
         items: [
-          { title: 'Vue', to: '/vue', icon: 'insert_drive_file' },
-          { title: 'Vuetify', to: '/vuetify', icon: 'insert_photo' },
-          { title: 'Brunch', to: '/brunch', icon: 'insert_invitation'},
-          { title: 'Settings', to: '/settings', icon: 'settings'}
+          { title: 'Vue', to: '/vue', icon: 'bluetooth_connected' },
+          { title: 'Vuetify', to: '/vuetify', icon: 'dashboard' },
+          { title: 'Brunch', to: '/brunch', icon: 'code'},
+          { title: 'Settings', to: '/settings', icon: 'settings'},
+          { title: 'Route error', to: '/RouteError', icon: 'error'} // No exist route
         ],
         right: true,
         rightDrawer: false,
@@ -68,7 +70,7 @@
     },
     methods: {
       toggleMini() {
-        this.setMini(!this.mini)
+        this.setMini(!this.miniNav)
         this.$nextTick(this.$refs.vnav.updateApplication)
       },
       showerror(msg) { this.showmsg(msg, 'error')},
@@ -103,5 +105,5 @@
     .alert
       text-align center
       width 100%
-      max-width 400px
+      max-width 500px
 </style>

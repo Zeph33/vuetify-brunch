@@ -1,19 +1,11 @@
 <template lang="pug">
-  div.hello
-    h1 {{ msg }}
-    h2 Essential Links
-    ul
-      li: a(href="https://vuejs.org" target="_blank") Core Docs
-      li: a(href="https://forum.vuejs.org" target="_blank") Forum
-      li: a(href="https://gitter.im/vuejs/vue" target="_blank") GitterChat
-      li: a(href="https://twitter.com/vuejs" target="_blank") Twitter
-    h2 Ecosystem
-    ul
-      li: a(href="https://vuetifyjs.com/" target="_blank") vuetify
-      li: a(href="http://router.vuejs.org/" target="_blank") vue-router
-      li: a(href="http://vuex.vuejs.org/" target="_blank") vuex
-      li: a(href="http://vue-loader.vuejs.org/" target="_blank") vue-loader
-      li: a(href="https://github.com/vuejs/awesome-vue" target="_blank") awesome-vue
+  div.welcome
+    SectionHeader {{ msg }}
+    p(align="center")
+      img(width="200" src="./img/logo_vue.svg")
+      img(width="200" src="./img/logo_brunch.png")
+      img(width="170" src="./img/logo_vuetify.svg")    
+    vuelink(:items="essentials")
 </template>
 
 <script>
@@ -21,7 +13,12 @@ export default {
   name: 'hello',
   data: function () {
     return {
-      msg: 'Vue.js Brunch App with Vuetify'
+      msg: 'Vue.js Brunch App with Vuetify',
+      essentials: [
+        {href:"https://vuejs.org" , title: 'Vue.js'},
+        {href:"https://vuetifyjs.com" , title: 'Vuetify'},
+        {href:"http://brunch.io/", title: 'Brunch'}
+      ],
     }
   }
 }
@@ -29,15 +26,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
-h1, h2 
-  font-weight: normal
-ul
-  list-style-type: none
-  padding: 0
-
-li 
-  display: inline-block
-  margin: 0 10px
-a 
-  color: #42b983
 </style>

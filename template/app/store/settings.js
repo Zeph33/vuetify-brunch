@@ -1,21 +1,20 @@
 const initState = {
-  title: 'Hello from Vuetify Material Component Framework ...',
-  mini: false
+  titleApp: 'Hello from Vuetify Material Component Framework ...',
+  miniNav: false
 }
 
 const mutations = {
   SET_TITLE(state, title) {
-    state.title = title
+    state.titleApp = title
   },
   SET_MINI(state, mini) {
-    state.mini = mini
+    state.miniNav = mini
   }
 }
 
 const getters = {
-  test(state) { return state.test },
-  mini(state) { return state.mini },
-  title(state) { return state.title }
+  miniNav(state) { return state.miniNav },
+  titleApp(state) { return state.titleApp }
 }
 
 const actions = {
@@ -38,9 +37,12 @@ import { mapActions, mapGetters } from 'vuex'
 
 export const mixins = {
   computed: {
-    ...mapGetters([
-      'mini',
-      'title'])
+    ...mapGetters(['titleApp']),
+    miniNav: {
+        get: function() { return this.$store.state.settings.miniNav },
+        set: function(val) { this.$store.dispatch('setMini', val) }
+      },
+        
   },
   methods: mapActions(['setMini', 'setTitle'])
 }

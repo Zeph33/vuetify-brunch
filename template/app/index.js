@@ -1,42 +1,27 @@
-// import Vue from 'vue' // Comment import for not have vue.js in vendor.js
-// import vuetify from 'vuetify' // Comment import for not have vuetify.js in vendor.js
-import 'es6-promise/auto'
-import { createApp } from './app'
+import Router from 'vue-router'
+import routes from './routes'
+import createLocalState from './store/localstorage'
+import {store, mixins } from './store'
+import App from './App'
+import components from './components'
 
-const { app, router, store } = createApp()
+// add components
+components.forEach(component => Vue.component(component.name, component))
+// add all mixins storage
+mixins.forEach( mixin => Vue.mixin(mixin) )
 
-// prime the store with server-initialized state.
-// the state is determined during SSR and inlined in the page markup.
-if (window.__INITIAL_STATE__) {
-  store.replaceState(window.__INITIAL_STATE__)
-}
+createLocalState({ states: ['settings'] })(store)
 
-// wait until router has resolved all async before hooks
-// and async components...
-router.onReady(() => {
-  // Add router hook for handling asyncData.
-  // Doing it after initial route is resolved so that we don't double-fetch
-  // the data that we already have. Using router.beforeResolve() so that all
-  // async components are resolved.
-  router.beforeResolve((to, from, next) => {
-    const matched = router.getMatchedComponents(to)
-    const prevMatched = router.getMatchedComponents(from)
-    let diffed = false
-    const activated = matched.filter((c, i) => {
-      return diffed || (diffed = (prevMatched[i] !== c))
-    })
-    if (!activated.length) {
-      return next()
-    }
-    Promise.all(activated.map(c => {
-      if (c.asyncData) {
-        return c.asyncData({ store, route: to })
-      }
-    })).then(() => {
-      next()
-    }).catch(next)
-  })
+Vue.use(Router)
+const router = new Router({
+  routes,
+  mode: 'history',
+  saveScrollPosition: true
+})
 
-  // actually mount to DOM
-  app.$mount('#app')
+const app = new Vue({
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
 })
