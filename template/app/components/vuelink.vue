@@ -5,7 +5,7 @@
         v-toolbar(color="indigo" dark)
           v-toolbar-title \{{ title }}
         v-list
-          v-list-tile(v-for="item in items" :href="item.href" target="_blank") {{ item.title }}
+          v-list-tile(v-for="item in items" :href="item.href" target="_blank") \{{ item.title }}
     slot
 </template>
 
