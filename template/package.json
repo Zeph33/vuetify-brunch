@@ -14,9 +14,7 @@
     "url": "git+https://"
   },
   "scripts": {
-    "watch:server": "nodemon server.js --ignore public/ --ignore app/",
-    "watch:app": "brunch watch",
-    "watch": "npm run clean && npm-run-all --parallel watch:*",
+    "watch": "npm run clean && brunch watch --server",
     "clean": "rimraf public/**",
     "build": "npm run clean && brunch build --production && rimraf public/test**",
     "start": "cross-env HOST=0.0.0.0 NODE_ENV=production node server",
